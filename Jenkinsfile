@@ -10,27 +10,24 @@ pipeline {
       }
     }
 
-    stage('Install dependencies') {
+    stage('Build') {
       steps {
-        // Install Node.js dependencies
-        nodejs('NodeJS 14') {
-          sh 'npm ci'
-        }
+        // Build the project
+        sh 'npm install'
+        sh 'npm run build'
       }
     }
 
-    stage('Build') {
+    stage('Test') {
       steps {
-        // Build the React project
-        nodejs('NodeJS 14') {
-          sh 'npm run build'
-        }
+        // Run tests
+        sh 'npm run test'
       }
     }
 
     stage('Publish') {
       steps {
-        // Publish the build artifacts (e.g., to a web server)
+        // Publish the build artifacts or deploy to a server
         // Modify this step according to your deployment requirements
         // For example, you can use an FTP or SCP plugin to upload the build artifacts.
         sh 'echo "Publishing the build artifacts..."'
